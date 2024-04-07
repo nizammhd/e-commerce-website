@@ -71,9 +71,9 @@ exports.userLogin = async (req, res) => {
         secure: true,
         maxAge: 1000 * 60 * 60,
       });
-      // res.setHeader("Authorization",token)
+      
       console.log(token)
-      res.status(200).send({ message: "welcome user", token });
+      res.status(200).send({ message: "welcome user", token, userID:user._id});
      
     } else {
       res.status(401).send("Invalid username or password");
@@ -83,3 +83,50 @@ exports.userLogin = async (req, res) => {
     res.status(500).send("Login failed");
   }
 };
+
+exports.userDelete= async (req,res)=>{
+  try {
+    const id = req.params.id
+  await Userdb.findByIdAndDelete(id)
+
+  Userdb.save()
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message:error.message
+    });
+  }
+  
+  
+
+}
+exports.userLogout = (req, res) => {
+  try {
+    
+    res.clearCookie('token');
+
+   
+    res.status(200).send({ message: "User logged out successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Logout failed");
+  }
+};
+exports.getUsers=async (req,res)=>{
+  try {
+    const users= await Userdb.find()
+    res.send(users)
+    
+  } catch (error) {
+    console.log(error.message)
+    res.send(error.message)
+    
+  }
+
+}
+exports.userDelete=()=>{
+  
+  let id = req.params.id
+  const user= Userdb.findByIdAndDelete(id)
+}

@@ -252,3 +252,19 @@ exports.fetchWish = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+const token=jwt.sign({email:email},secretkey,{
+ expiresIn:'1hr'
+})
+
+res.cookie('token',token,{
+  httpOnly:true,
+  secure:true,
+  maxAge:1000*60*60
+})
+
+
+
+jwt.verify(token,secretkey,{
+  ignoreExpiration:true
+})

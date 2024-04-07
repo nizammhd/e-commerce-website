@@ -1,9 +1,17 @@
+//product schema
+
 const mongoose=require('mongoose')
 
 const productSchema= new mongoose.Schema({
-    name:String,
+    name:{
+        type:String,
+        required:true
+    },
     price:Number,
-    id:String,
+    id:{
+        type:String,
+        unique:true
+    },
     discription:String,
     gender:String,
     qty:Number,
@@ -12,6 +20,6 @@ const productSchema= new mongoose.Schema({
 
 })
 
-const product =mongoose.model('products',productSchema)
+const productModel =mongoose.model('product',productSchema)
 
-module.exports =product
+module.exports =productModel

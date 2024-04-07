@@ -6,7 +6,7 @@ const AdminControle=require('../controllers/productControllers')
 
 
 router.post('/add',AdminControle.addProduct)
-router.put('/:id',AdminControle.updateProduct)
+router.patch('/:id',AdminControle.updateProduct)
 router.delete('/:id',AdminControle.deleteProduct)
 
 
