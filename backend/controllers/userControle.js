@@ -58,6 +58,7 @@ exports.getUser = (req, res) => {
 exports.userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email,password)
     const user = await Userdb.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
